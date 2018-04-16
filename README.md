@@ -6,5 +6,6 @@ to run the code:
 The arguments are input path, output path, word length, number of ranking  
 In this example, will get back the top 20 tokens that occurs most frequently  
 and the token occurence and word type of length-3 words.
+To get whole distribution of token occurence, set number of ranking be the number of word_type.  
 
 The last two arguments are optional.
