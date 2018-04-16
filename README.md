@@ -1,5 +1,3 @@
-### 1062_NLP stores programs written for 1062 NLP course
-
 #### The program is written in pyspark.
 #### Pyspark helps the performance by parallelization.
 
