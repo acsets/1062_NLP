@@ -17,8 +17,8 @@ def main(directory_path):
     print(tokenization_statistic)
 
 def token_count(rdd_text_list):
-    rdd_count = rdd_text_list.map(lambda x: 1) 
-    token_count = rdd_count.reduce(lambda accu,n: accu+n) #accu means acculmulator
+    rdd_token = rdd_text_list.map(lambda x: 1) 
+    token_count = rdd_token.reduce(lambda accu,n: accu+n) #accu means acculmulator
     return token_count
 
 def word_type_count(rdd_text_list): 
