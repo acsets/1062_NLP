@@ -9,7 +9,7 @@ After downloading, extract it and you are ready to go. You will need to install 
 **Ubuntu is recommended.**
 
 # Usage
-cd to <path_to_your_spark>/bin
+cd to <path_to_your_spark>/bin, and run the following command    
 `spark-submit token_type_count.py <path>/Texts_tokenized/ <path>/text_description/ 3 20`   
 The arguments are input path, output path, word length, number of ranking  
 In this example, will get back the top 20 tokens that occurs most frequently  
