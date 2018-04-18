@@ -5,8 +5,9 @@ Spark is an engine that helps automatically distribute computation jobs to nodes
 
 # Spark Installation
 Download spark-2.3.0-bin-hadoop2.7.tgz from Spark officail website: https://spark.apache.org/downloads.html  
-After downloading, extract it and you are ready to go.  
-**you will need to install java if java is not pre-installed.**
+After downloading, extract it and you are ready to go.
+**You will need to install java if java is not pre-installed.**
+**Ubuntu is recommended.**
 
 # Usage
 cd to <path_to_your_spark>/bin
