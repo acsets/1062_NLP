@@ -1,3 +1,4 @@
+#this program is written in pyspark syntax
 from pyspark import SparkContext
 sc = SparkContext()
 import os
@@ -10,7 +11,7 @@ def main(in_path, out_path, token_length, rank_n):
         open_file.close()
         text_list = text.split("\n") #turn string into list
         rdd_text_list = sc.parallelize(text_list) #python list into RDD
-        num_token = token_count(rdd_text_list)
+        num_token = get_num_token(rdd_text_list)
         num_word_type = get_num_of_word_type(rdd_text_list)
         num_n_character_token, num_n_character_wordType = n_character_token_wordType_count(token_length, rdd_text_list)
         list_rank_most_frequent_token = token_frequency_rank(rank_n, rdd_text_list)
@@ -31,30 +32,27 @@ Number of length-{} word type: {}
     
     stringified_list_ranking = list(map(lambda key_value_pair_tuple: str(key_value_pair_tuple), list_ranking))
     str_ranking = "\n".join(stringified_list_ranking)
-    description += "Top " + str(rank_n) + " frequent tokens: \n" + str_ranking + '\n'    
+    description += "Top " + str(rank_n) + " frequent tokens: \n" + str_ranking + '\n'
     return description
 
-def token_count(rdd_text_list): 
+def get_num_token(rdd_text_list):
     return rdd_text_list.count()
 
-    #get back the number of tokens and word type that are length n
-def n_character_token_wordType_count(n, rdd_text_list):
+def n_character_token_wordType_count(n, rdd_text_list):#get back the number of tokens and word type that are length n
     rdd_n_char_token = rdd_text_list.filter(lambda token: len(token) == int(n) )
-    n_char_token_count = rdd_n_char_token.count() 
-    rdd_word_occurence_key_value_tuple = get_token_occurence_key_value_tuple(rdd_n_char_token)
+    n_char_token_count = rdd_n_char_token.count()
+    rdd_word_occurence_key_value_tuple = get_token_occurence_key_value_tuple(rdd_n_char_token) 
     n_char_word_type_count = rdd_word_occurence_key_value_tuple.count()
     return n_char_token_count, n_char_word_type_count
 
-    #get back n highest frequency tokens
-def token_frequency_rank(n, rdd_text_list):
+def token_frequency_rank(n, rdd_text_list):#get back n highest frequency tokens
     rdd_word_occurence_key_value_tuple = get_token_occurence_key_value_tuple(rdd_text_list)
     top_n_frequent_tokens = rdd_word_occurence_key_value_tuple.sortBy(lambda key_value_tuple: key_value_tuple[1], ascending = False).take(int(n)) #rdd's take() method returns a list, a list of key-value pair tuple in this case. ex: [('年', 30), ('的', 28), ('為', 16), ('昭和', 15), ('臺灣', 14), ('臺', 13), (' 音樂', 12), ('陳', 12), ('在', 10), ('學校', 9)] 
     return top_n_frequent_tokens 
-
-    #get back token and its number of occurence
-def get_token_occurence_key_value_tuple(rdd_text_list):
+    
+def get_token_occurence_key_value_tuple(rdd_text_list): #get back token and its number of occurence
     rdd_word_occurence = rdd_text_list.map(lambda x: (x,1)) 
-    rdd_word_occurence_key_value_tuple = rdd_word_occurence.reduceByKey(lambda accu, n: accu + n) 
+    rdd_word_occurence_key_value_tuple = rdd_word_occurence.reduceByKey(lambda accu, n: accu + n)
     return rdd_word_occurence_key_value_tuple 
 
 def get_num_of_word_type(rdd_text_list):
