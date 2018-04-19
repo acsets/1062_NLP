@@ -47,7 +47,7 @@ def n_character_token_wordType_count(n, rdd_text_list):#get back the number of t
 
 def token_frequency_rank(n, rdd_text_list):#get back n highest frequency tokens
     rdd_word_occurence_key_value_tuple = get_token_occurence_key_value_tuple(rdd_text_list)
-    top_n_frequent_tokens = rdd_word_occurence_key_value_tuple.sortBy(lambda key_value_tuple: key_value_tuple[1], ascending = False).take(int(n)) #rdd's take() method returns a list, a list of key-value pair tuple in this case. ex: [('年', 30), ('的', 28), ('為', 16), ('昭和', 15), ('臺灣', 14), ('臺', 13), (' 音樂', 12), ('陳', 12), ('在', 10), ('學校', 9)] 
+    top_n_frequent_tokens = rdd_word_occurence_key_value_tuple.sortBy(lambda key_value_tuple: key_value_tuple[1], ascending = False).take(int(n)) 
     return top_n_frequent_tokens 
     
 def get_token_occurence_key_value_tuple(rdd_text_list): #get back token and its number of occurence
