@@ -1,4 +1,3 @@
-#this program is written in pyspark syntax
 from pyspark import SparkContext
 sc = SparkContext()
 import os
